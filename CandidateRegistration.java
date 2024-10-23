@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class CandidateRegistration extends JFrame {
-    private JTextField nameField, dobField, fatherNameField, motherNameField;
+    private JTextField nameField, dobField,nidField, fatherNameField, motherNameField;
     private JTextField presentAddressField, permanentAddressField, qualificationField;
     private JTextField nationalityField, bloodGroupField;
 
@@ -19,7 +19,7 @@ public class CandidateRegistration extends JFrame {
         setLocationRelativeTo(null);
 
         // Load the background image
-        ImageIcon originalIcon = new ImageIcon("C:\\Users\\DELL\\OneDrive\\Pictures\\Screenshots\\Screenshot 2024-07-12 162144.png.jpg"); // Path to your image
+        ImageIcon originalIcon = new ImageIcon("C:\\Users\\DELL\\OneDrive\\Pictures\\craiyon_230316_give_a_background_in_grey_color.png"); // Path to your image
         Image originalImage = originalIcon.getImage();
 
         // Create a panel with custom painting for background
@@ -60,13 +60,28 @@ public class CandidateRegistration extends JFrame {
 
         JLabel bloodGroupLabel = createCustomLabel("Blood Group:");
         bloodGroupField = createCustomTextField();
+        
+         JLabel nidLabel = createCustomLabel("NID (11 digits):");
+        nidField = createCustomTextField();
 
-        JButton registerButton = createCustomButton("Register", Color.RED, Color.WHITE);
+        JButton registerButton = createCustomButton("Register", Color.WHITE, Color.RED);
         registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Validate fields
                 if (isAnyFieldEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please fill all fields.");
+                    return;
+                }
+                 // Check NID length
+                String nid = nidField.getText();
+                if (nid.length() != 11 || !nid.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(null, "NID must be 11 digits.");
+                    return;
+                }
+
+                // Check if NID is already registered
+                if (VoteManager.isNIDRegistered(nidField.getText())) {
+                    JOptionPane.showMessageDialog(null, "This NID is already registered.");
                     return;
                 }
 
@@ -99,7 +114,7 @@ public class CandidateRegistration extends JFrame {
 
                 if (post != null) {
                     // Register the candidate
-                    VoteManager.registerCandidate(post, name, dob, fatherName, motherName, presentAddress,
+                    VoteManager.registerCandidate(post, name, dob,nid, fatherName, motherName, presentAddress,
                             permanentAddress, qualification, nationality, bloodGroup);
 
                     JOptionPane.showMessageDialog(null, "Candidate Registered Successfully!");
@@ -110,7 +125,15 @@ public class CandidateRegistration extends JFrame {
                 }
             }
         });
-
+        // Back button to go back to the menu
+        JButton backButton = createCustomButton("Back", Color.GRAY, Color.WHITE);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MenuPage().setVisible(true); // Return to the main menu
+                dispose(); // Close the current window
+            }
+        });
         // Add components to the background panel
         backgroundPanel.add(Box.createVerticalGlue());  // Push components to the center
         backgroundPanel.add(nameLabel); backgroundPanel.add(nameField);
@@ -122,8 +145,11 @@ public class CandidateRegistration extends JFrame {
         backgroundPanel.add(qualificationLabel); backgroundPanel.add(qualificationField);
         backgroundPanel.add(nationalityLabel); backgroundPanel.add(nationalityField);
         backgroundPanel.add(bloodGroupLabel); backgroundPanel.add(bloodGroupField);
+         backgroundPanel.add(nidLabel); backgroundPanel.add(nidField);
         backgroundPanel.add(Box.createVerticalStrut(20));
         backgroundPanel.add(registerButton);
+         backgroundPanel.add(Box.createVerticalStrut(20)); // Space between buttons
+        backgroundPanel.add(backButton);
         backgroundPanel.add(Box.createVerticalGlue());
 
         // Set the background panel as the content pane
@@ -153,7 +179,7 @@ public class CandidateRegistration extends JFrame {
     // Helper method to create a custom JLabel with specified text color
     private JLabel createCustomLabel(String text) {
         JLabel label = new JLabel(text, SwingConstants.LEFT);
-        label.setForeground(Color.BLACK);
+        label.setForeground(Color.WHITE);
         label.setFont(new Font("Serif", Font.BOLD, 18));
         return label;
     }
