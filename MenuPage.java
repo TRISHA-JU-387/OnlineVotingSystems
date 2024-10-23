@@ -11,7 +11,7 @@ public class MenuPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Load the background image
-        ImageIcon originalIcon = new ImageIcon("C:\\Users\\DELL\\OneDrive\\Pictures\\9282f5c3-8ce4-4c37-828c-1bea14ee6ffb.jpg"); // Path to your image
+        ImageIcon originalIcon = new ImageIcon("C:\\Users\\DELL\\OneDrive\\Pictures\\5bc01d14-9a40-4dad-a66f-2526e93b9fcd.jpg"); // Path to your image
         Image originalImage = originalIcon.getImage();
 
         // Create a panel with custom painting
@@ -26,10 +26,10 @@ public class MenuPage extends JFrame {
         backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
 
         // Create buttons with customized colors
-        JButton adminBlockButton = createCustomButton("Admin Block", Color.BLUE, Color.WHITE);
-        JButton candidateRegButton = createCustomButton("Candidate Registration", Color.GREEN, Color.WHITE);
-        JButton votingPanelButton = createCustomButton("Voting Panel", Color.ORANGE, Color.WHITE);
-        JButton resultButton = createCustomButton("Result", Color.RED, Color.WHITE);
+        JButton adminBlockButton = createCustomButton("Admin Block", Color.BLACK, Color.WHITE);
+        JButton candidateRegButton = createCustomButton("Candidate Registration", Color.GRAY, Color.WHITE);
+        JButton votingPanelButton = createCustomButton("Voting Panel", Color.PINK, Color.WHITE);
+        JButton resultButton = createCustomButton("Result", Color.WHITE, Color.BLACK);
 
         // Add action listeners to buttons
         adminBlockButton.addActionListener(new ActionListener() {
@@ -81,7 +81,7 @@ public class MenuPage extends JFrame {
         JButton button = new JButton(text);
         button.setBackground(backgroundColor);
         button.setForeground(foregroundColor);
-        button.setFont(new Font("Serif", Font.BOLD, 20));  // Set font size and style
+        button.setFont(new Font("Times New Roman", Font.BOLD, 20));  // Set font size and style
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setMaximumSize(new Dimension(300, 50)); // Set button size
         return button;
