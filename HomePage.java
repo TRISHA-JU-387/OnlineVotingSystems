@@ -26,7 +26,7 @@ public class HomePage extends JFrame {
 
         // Create the welcome label
         JLabel welcomeLabel = new JLabel("Welcome to Online Voting System", SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Serif", Font.BOLD, 30));  // Adjust the font size and style
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 40));  // Adjust the font size and style
         welcomeLabel.setForeground(Color.BLACK);  // Set the text color to white for better visibility
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -40,6 +40,7 @@ public class HomePage extends JFrame {
                 new MenuPage().setVisible(true);
             }
         });
+         
 
         // Add spacing and components to the background panel
         backgroundPanel.add(Box.createVerticalGlue());  // Push contents to the center
